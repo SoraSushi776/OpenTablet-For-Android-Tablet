@@ -1,5 +1,6 @@
 package personal.sushi.opentabletforandroidtablet
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Build
 import android.util.Log
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import personal.sushi.opentabletforandroidtablet.databinding.ActivityTabletBinding
 import personal.sushi.opentabletforandroidtablet.mapping.MappingMath
+import personal.sushi.opentabletforandroidtablet.mapping.PressureSettingsStore
 import personal.sushi.opentabletforandroidtablet.utils.RootUtils
 
 class TabletActivity : AppCompatActivity() {
@@ -133,6 +135,7 @@ class TabletActivity : AppCompatActivity() {
             binding.touchViewTablet.attach(bridge)
             binding.touchViewTablet.setAllowFingerInput(allowFingerInput)
             binding.touchViewTablet.setMappingRegion(region)
+            binding.touchViewTablet.setPressureSettings(PressureSettingsStore.load(this@TabletActivity))
             Log.i(TAG, "Writer thread started")
         }
     }
@@ -206,6 +209,17 @@ class TabletActivity : AppCompatActivity() {
             altActive = checked
             if (!checked) bridge.nativeReleaseKeys()
         }
+
+        binding.btnOpenSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        enterImmersiveMode()
+        // Reload mapping-region overlay if settings changed while we were paused.
+        binding.touchViewTablet.setPressureSettings(PressureSettingsStore.load(this))
     }
 
     private fun startLockTaskMode() {
@@ -234,11 +248,6 @@ class TabletActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e(TAG, "Stop lock task failed", e)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        enterImmersiveMode()
     }
 
     @Deprecated("Deprecated in Java")

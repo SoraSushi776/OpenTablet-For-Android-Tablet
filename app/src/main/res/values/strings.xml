@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">OpenTablet For Android Tablet</string>
+    <string name="app_name">Android HID 数位板</string>
 
     <!-- Main screen -->
-    <string name="title_main">Tablet HID Digitizer</string>
-    <string name="subtitle_main">将平板触控转为 USB HID 数位板信号</string>
+    <string name="title_main">Android HID 数位板</string>
+    <string name="subtitle_main">将安卓平板触控/笔通过 USB HID 输出为绝对定位数位板</string>
 
     <!-- Status section -->
     <string name="section_status">环境状态</string>
@@ -30,12 +30,32 @@
     <string name="fmt_scale_value">%1$d%%</string>
     <string name="fmt_offset_value">%1$s%%</string>
 
+    <!-- Settings page -->
+    <string name="title_settings">设置</string>
+    <string name="subtitle_settings">坐标映射与压感曲线</string>
+    <string name="btn_settings">设置</string>
+    <string name="btn_back">返回主页</string>
+    <string name="preset_click">仅点击优化</string>
+    <string name="preset_ps">PS 绘画</string>
+    <string name="preset_default">默认</string>
+    <string name="toast_pressure_preset">已应用压感预设</string>
+    <string name="fmt_pressure_summary">接触判定 %1$d%% · 下笔最低压感 %2$d%% · 曲线点 (%3$d, %4$d) · 上限 %5$d%%\n拖图中白点改曲线，蓝竖线=落笔判定，橙横线=最小压感。</string>
+    <string name="hint_pressure_help">压感主要给 PS 的笔刷；左键点击看「下笔最低压感」。曲线点 Y 越低轻笔越吃力。</string>
+
+    <!-- Pressure section (kept for tablet labels) -->
+    <string name="section_pressure">压感与点击</string>
+    <string name="label_contact_threshold">落笔判定 %</string>
+    <string name="label_min_tip">最小落笔压感 %</string>
+    <string name="label_gamma">压感曲线 %</string>
+    <string name="label_max_pressure">压感上限 %</string>
+    <string name="btn_pressure_reset">恢复默认压感</string>
+    <string name="toggle_pressure_panel">压感调节</string>
+
     <!-- Buttons -->
     <string name="btn_setup">挂载 HID 设备</string>
     <string name="btn_setting_up">正在挂载…</string>
     <string name="btn_start">启动数位板</string>
     <string name="btn_stop">停止数位板</string>
-    <string name="btn_export_otd">导出 OTD 配置文件</string>
     <string name="btn_view_log">查看运行日志</string>
     <string name="btn_teardown">取消挂载并恢复 ADB</string>
     <string name="toast_teardown_ok">已取消挂载，ADB 已恢复</string>
@@ -65,8 +85,6 @@
     <string name="toast_setup_fail">挂载失败: %1$s</string>
     <string name="toast_open_fail">无法打开 /dev/hidg0，请确认已挂载</string>
     <string name="toast_no_root">未获取 Root 权限</string>
-    <string name="toast_otd_exported">OTD 配置已导出到下载目录</string>
-    <string name="toast_otd_export_fail">导出失败: %1$s</string>
     <string name="toast_unlock_first">请先关闭屏幕锁定开关</string>
 
     <!-- Tablet Activity: Express Keys -->

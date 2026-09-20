@@ -10,6 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import personal.sushi.opentabletforandroidtablet.HidBridge
 import personal.sushi.opentabletforandroidtablet.mapping.MappingRegion
+import personal.sushi.opentabletforandroidtablet.mapping.PressureSettings
 
 class TouchCaptureView @JvmOverloads constructor(
     context: Context,
@@ -46,12 +47,18 @@ class TouchCaptureView @JvmOverloads constructor(
      */
     private val hoverMuteAfterUpMs = 30L
 
-    /**
-     * Stylus touch samples below this pressure are treated as hover (tip=0).
-     * Covers devices that fold air-events into onTouchEvent instead of
-     * onHoverEvent.
-     */
-    private val contactPressureThreshold = 0.06f
+    /** Pressure curve / click threshold; tunable from main + tablet UI. */
+    private var pressureSettings = PressureSettings.DEFAULT
+
+    private fun contactThreshold(): Float = pressureSettings.contactThreshold
+
+    private fun outputPressure(raw: Float, tipDown: Boolean): Float =
+        if (toolType == "finger" && tipDown) 1f
+        else pressureSettings.apply(raw, tipDown)
+
+    fun setPressureSettings(settings: PressureSettings) {
+        pressureSettings = settings
+    }
 
     private val markerPaint = Paint().apply {
         color = Color.argb(100, 0, 200, 255)
@@ -128,11 +135,8 @@ class TouchCaptureView @JvmOverloads constructor(
         lastX = x
         lastY = y
         lastPressure = 0f
-        // In-range hover: set status bit0 (same bit this project's OTD setup
-        // treats as "pen present") but pressure=0 so tip bindings that key
-        // off pressure do not click. Hosts that drop tip=0/out-of-range
-        // reports will now track the cursor while the pen is in the air.
-        // Finger/touch still send pressure>0; ACTION_UP still sends tip=0.
+        // In-range hover: status bit0 = pen present, pressure 0 so hosts
+        // that key click off pressure do not fire. Position is still valid.
         b.nativeProcessTouch(x, y, true, 0f)
         invalidate()
     }
@@ -147,8 +151,7 @@ class TouchCaptureView @JvmOverloads constructor(
 
         when (event.actionMasked) {
             MotionEvent.ACTION_HOVER_ENTER -> {
-                // Send immediately so OTD picks up cursor position on enter,
-                // not only after the first MOVE.
+                // Send immediately so the host picks up cursor position on enter.
                 emitHover(event.x, event.y)
             }
             MotionEvent.ACTION_HOVER_MOVE -> {
@@ -186,12 +189,14 @@ class TouchCaptureView @JvmOverloads constructor(
                 val x = event.getX(index)
                 val y = event.getY(index)
                 val rawPressure = if (isPen) event.getPressure(index) else 1f
-                val contact = !isPen || rawPressure >= contactPressureThreshold
+                // Hover is delivered via onHoverEvent. onTouchEvent + stylus
+                // is contact; only ignore OEM "air" samples with pressure below
+                // the user threshold (default ~2%, not the old 6%).
+                val contactOk = !isPen || rawPressure >= contactThreshold()
 
                 activePointerId = pointerId
 
-                if (!contact) {
-                    // Air / hover sample delivered as a touch event.
+                if (!contactOk) {
                     penDown = false
                     touchActive = false
                     emitHover(x, y)
@@ -203,7 +208,7 @@ class TouchCaptureView @JvmOverloads constructor(
                 penDown = true
                 toolType = if (isPen) "pen" else "finger"
 
-                val pressure = if (isPen) rawPressure else 1f
+                val pressure = outputPressure(rawPressure, tipDown = true)
                 lastX = x
                 lastY = y
                 lastPressure = pressure
@@ -226,29 +231,20 @@ class TouchCaptureView @JvmOverloads constructor(
                 val isPen = isPenTool(tool) || toolType == "pen"
                 val rawPressure =
                     if (isPen) event.getPressure(index) else 1f
-                val contact = !isPen || rawPressure >= contactPressureThreshold
 
-                if (!contact) {
-                    if (!penDown) {
-                        emitHover(x, y)
-                    } else {
-                        // Mid-stroke pressure dipped — keep tip down so the
-                        // stroke is not interrupted.
-                        lastX = x
-                        lastY = y
-                        lastPressure = rawPressure
-                        bridge!!.nativeProcessTouch(x, y, true, rawPressure)
-                        invalidate()
-                    }
+                if (isPen && !penDown && rawPressure < contactThreshold()) {
+                    emitHover(x, y)
                     return true
                 }
 
-                lastX = x
-                lastY = y
-                lastPressure = if (isPen) rawPressure else 1f
+                // Once penDown, keep tip for the whole stroke even if raw
+                // pressure dips; outputPressure floors at minTipPressure.
                 touchActive = true
                 penDown = true
                 isHovering = false
+                lastX = x
+                lastY = y
+                lastPressure = outputPressure(rawPressure, tipDown = true)
                 bridge!!.nativeProcessTouch(x, y, true, lastPressure)
                 invalidate()
             }
