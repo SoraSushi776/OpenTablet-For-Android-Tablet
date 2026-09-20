@@ -1,0 +1,4 @@
+# Keep JNI native method declarations — the C++ side references these by name.
+-keep class personal.sushi.opentabletforandroidtablet.HidBridge {
+    native <methods>;
+}

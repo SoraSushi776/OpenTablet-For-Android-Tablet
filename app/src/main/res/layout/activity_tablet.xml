@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#FF1a1a2e">
+
+    <!-- ── Left Panel: Express Keys + Toggles ── -->
+    <ScrollView
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:background="#FF16213e"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/section_express_keys"
+                android:textColor="#FF8e9aaf"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnKeyUndo"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_undo"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyRedo"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_redo"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyBrush"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_brush"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyEraser"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_eraser"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyBrushSmaller"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_brush_smaller"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyBrushLarger"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_brush_larger"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeySpace"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_space"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/btnKeyTab"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/key_tab"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/section_modifiers"
+                android:textColor="#FF8e9aaf"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <ToggleButton
+                android:id="@+id/toggleCtrl"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:textOff="@string/mod_ctrl"
+                android:textOn="@string/mod_ctrl"
+                android:textSize="11sp" />
+
+            <ToggleButton
+                android:id="@+id/toggleShift"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:textOff="@string/mod_shift"
+                android:textOn="@string/mod_shift"
+                android:textSize="11sp" />
+
+            <ToggleButton
+                android:id="@+id/toggleAlt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="4dp"
+                android:textOff="@string/mod_alt"
+                android:textOn="@string/mod_alt"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/section_toggles"
+                android:textColor="#FF8e9aaf"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <Switch
+                android:id="@+id/switchFingerInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/toggle_finger"
+                android:textSize="11sp"
+                android:textColor="#FFFFFFFF"
+                android:checked="false" />
+
+            <Switch
+                android:id="@+id/switchScreenLock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/toggle_screen_lock"
+                android:textSize="11sp"
+                android:textColor="#FFFFFFFF"
+                android:checked="false" />
+
+            <Button
+                android:id="@+id/btnExitTablet"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/btn_exit_tablet"
+                android:textSize="11sp"
+                android:textColor="#FFef5350" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ── Right Panel: Touch Capture Area ── -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FF0f0f1a">
+
+        <personal.sushi.opentabletforandroidtablet.view.TouchCaptureView
+            android:id="@+id/touchViewTablet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OpenTablet For Android Tablet</string>
+
+    <!-- Main screen -->
+    <string name="title_main">Tablet HID Digitizer</string>
+    <string name="subtitle_main">将平板触控转为 USB HID 数位板信号</string>
+
+    <!-- Status section -->
+    <string name="section_status">环境状态</string>
+    <string name="label_root">Root 状态</string>
+    <string name="label_hidg">/dev/hidg0</string>
+    <string name="label_screen">屏幕分辨率</string>
+
+    <!-- Mapping section -->
+    <string name="section_mapping">坐标映射预设</string>
+    <string name="label_aspect">目标比例</string>
+    <string name="label_scale">缩放 %</string>
+    <string name="label_offset_x">偏移 X %</string>
+    <string name="label_offset_y">偏移 Y %</string>
+    <string name="hint_mapping_help">比例区域在右侧触控 View 内尽可能撑满；缩放与偏移按 View 宽高百分比调整。区域内触控映射到 0–32767。</string>
+    <string name="label_presets">已保存预设</string>
+    <string name="hint_preset_name">预设名称</string>
+    <string name="btn_save_preset">保存预设</string>
+    <string name="btn_delete_preset">删除所选</string>
+    <string name="toast_preset_saved">预设已保存</string>
+    <string name="toast_preset_deleted">预设已删除</string>
+    <string name="toast_preset_builtin">内置预设不可删除</string>
+    <string name="toast_preset_name_required">请先填写预设名称</string>
+    <string name="fmt_scale_value">%1$d%%</string>
+    <string name="fmt_offset_value">%1$s%%</string>
+
+    <!-- Buttons -->
+    <string name="btn_setup">挂载 HID 设备</string>
+    <string name="btn_setting_up">正在挂载…</string>
+    <string name="btn_start">启动数位板</string>
+    <string name="btn_stop">停止数位板</string>
+    <string name="btn_export_otd">导出 OTD 配置文件</string>
+    <string name="btn_view_log">查看运行日志</string>
+    <string name="btn_teardown">取消挂载并恢复 ADB</string>
+    <string name="toast_teardown_ok">已取消挂载，ADB 已恢复</string>
+    <string name="toast_teardown_fail">取消挂载失败: %1$s</string>
+
+    <!-- Log viewer -->
+    <string name="title_log_viewer">运行日志</string>
+    <string name="btn_clear_log">清除</string>
+    <string name="btn_copy_log">复制</string>
+    <string name="toast_copied">已复制到剪贴板</string>
+    <string name="log_empty">暂无日志</string>
+
+    <!-- Status values -->
+    <string name="status_yes">是</string>
+    <string name="status_no">否</string>
+    <string name="status_present">已就绪</string>
+    <string name="status_absent">未创建</string>
+    <string name="status_unknown">未知</string>
+    <string name="status_root_ok">Root 可用</string>
+    <string name="status_root_no">未获取 Root</string>
+
+    <!-- Format strings -->
+    <string name="fmt_screen">%1$d × %2$d</string>
+
+    <!-- Toasts -->
+    <string name="toast_setup_ok">HID 设备挂载成功</string>
+    <string name="toast_setup_fail">挂载失败: %1$s</string>
+    <string name="toast_open_fail">无法打开 /dev/hidg0，请确认已挂载</string>
+    <string name="toast_no_root">未获取 Root 权限</string>
+    <string name="toast_otd_exported">OTD 配置已导出到下载目录</string>
+    <string name="toast_otd_export_fail">导出失败: %1$s</string>
+    <string name="toast_unlock_first">请先关闭屏幕锁定开关</string>
+
+    <!-- Tablet Activity: Express Keys -->
+    <string name="section_express_keys">快捷键</string>
+    <string name="key_undo">撤销</string>
+    <string name="key_redo">重做</string>
+    <string name="key_brush">画笔</string>
+    <string name="key_eraser">橡皮擦</string>
+    <string name="key_brush_smaller">笔刷缩小</string>
+    <string name="key_brush_larger">笔刷放大</string>
+    <string name="key_space">空格</string>
+    <string name="key_tab">Tab</string>
+
+    <!-- Tablet Activity: Modifiers -->
+    <string name="section_modifiers">修饰键</string>
+    <string name="mod_ctrl">Ctrl</string>
+    <string name="mod_shift">Shift</string>
+    <string name="mod_alt">Alt</string>
+
+    <!-- Tablet Activity: Toggles -->
+    <string name="section_toggles">功能开关</string>
+    <string name="toggle_finger">手指输入</string>
+    <string name="toggle_screen_lock">屏幕锁定</string>
+    <string name="btn_exit_tablet">退出数位板</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Material 3 Dynamic-ish palette -->
+    <color name="m3_primary">#FF6750A4</color>
+    <color name="m3_on_primary">#FFFFFFFF</color>
+    <color name="m3_primary_container">#FFEADDFF</color>
+    <color name="m3_on_primary_container">#FF21005D</color>
+    <color name="m3_secondary">#FF625B71</color>
+    <color name="m3_on_secondary">#FFFFFFFF</color>
+    <color name="m3_secondary_container">#FFE8DEF8</color>
+    <color name="m3_on_secondary_container">#FF1D192B</color>
+    <color name="m3_surface">#FFFEF7FF</color>
+    <color name="m3_on_surface">#FF1D1B20</color>
+    <color name="m3_surface_variant">#FFE7E0EC</color>
+    <color name="m3_on_surface_variant">#FF49454F</color>
+    <color name="m3_error">#FFB3261E</color>
+    <color name="m3_outline">#FF79747E</color>
+
+    <!-- Tablet mode dark palette -->
+    <color name="tablet_bg">#FF1a1a2e</color>
+    <color name="tablet_panel">#FF16213e</color>
+    <color name="tablet_area">#FF0f0f1a</color>
+    <color name="tablet_accent">#FF0FAB66</color>
+    <color name="tablet_text_secondary">#FF8e9aaf</color>
+</resources>
