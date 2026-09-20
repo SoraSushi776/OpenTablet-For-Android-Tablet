@@ -161,4 +161,4 @@ A: App 会停 adbd 以免 USB 被改回 ADB。用「取消挂载并恢复 ADB」
 
 ## License
 
-发布前请自行补充开源协议（如 MIT / Apache-2.0）。
+[MIT](LICENSE) © 2026 Pramanix
