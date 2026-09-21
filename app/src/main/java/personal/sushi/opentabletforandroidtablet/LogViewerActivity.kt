@@ -18,6 +18,9 @@ class LogViewerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_viewer)
 
+        findViewById<com.google.android.material.appbar.MaterialToolbar>(R.id.toolbar)
+            .setNavigationOnClickListener { finish() }
+
         logText = findViewById(R.id.logText)
         logScroll = findViewById(R.id.logScroll)
 

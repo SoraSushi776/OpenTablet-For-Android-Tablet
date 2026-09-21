@@ -10,35 +10,40 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/title_settings"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="4dp" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            app:navigationIcon="@drawable/ic_m3_back"
+            app:title="@string/title_settings"
+            app:titleTextColor="?attr/colorOnSurface" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/subtitle_settings"
-            android:textSize="12sp"
-            android:textColor="?android:attr/textColorSecondary"
-            android:layout_marginBottom="16dp" />
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/subtitle_settings"
+                android:textSize="12sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:layout_marginBottom="16dp" />
 
         <!-- Mapping -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,14 +214,14 @@
                         android:inputType="text"
                         android:maxLines="1" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnSavePreset"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/btn_save_preset" />
                 </LinearLayout>
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnDeletePreset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,18 +233,18 @@
                     android:layout_marginTop="4dp"
                     android:text="@string/hint_mapping_help"
                     android:textSize="12sp"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Pressure -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -266,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPresetClick"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -274,7 +279,7 @@
                         android:text="@string/preset_click"
                         android:textSize="12sp" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPresetPs"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -282,7 +287,7 @@
                         android:text="@string/preset_ps"
                         android:textSize="12sp" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnPresetDefault"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -323,19 +328,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:text="@string/hint_pressure_help" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Background image -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="2dp"
-            app:cardUseCompatPadding="true">
+            app:strokeWidth="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -373,7 +378,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnBgDefault"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -381,7 +386,7 @@
                         android:text="@string/btn_bg_default"
                         android:textSize="12sp" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnBgPick"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -389,7 +394,7 @@
                         android:text="@string/btn_bg_pick"
                         android:textSize="12sp" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnBgNone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -404,15 +409,16 @@
                     android:layout_marginTop="8dp"
                     android:text="@string/hint_background"
                     android:textSize="12sp"
-                    android:textColor="?android:attr/textColorSecondary" />
+                    android:textColor="?attr/colorOnSurfaceVariant" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_back"
             android:padding="14dp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -67,14 +67,16 @@ class MainActivity : AppCompatActivity() {
         val rootOk = RootUtils.hasSu()
         binding.textRootStatus.text =
             if (rootOk) getString(R.string.status_root_ok) else getString(R.string.status_root_no)
-        binding.textRootStatus.setTextColor(getColor(if (rootOk) R.color.teal_700 else R.color.purple_500))
+        binding.textRootStatus.setTextColor(
+            getColor(if (rootOk) R.color.m3_status_ok else R.color.m3_status_bad)
+        )
 
         val hidgExists = RootUtils.pathExists(HID_PATH)
         binding.textHidgStatus.text = getString(
             if (hidgExists) R.string.status_present else R.string.status_absent
         )
         binding.textHidgStatus.setTextColor(
-            getColor(if (hidgExists) R.color.teal_700 else R.color.purple_500)
+            getColor(if (hidgExists) R.color.m3_status_ok else R.color.m3_status_bad)
         )
 
         binding.btnSetup.isEnabled = rootOk

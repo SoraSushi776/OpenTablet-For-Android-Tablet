@@ -8,9 +8,9 @@ import android.view.View
 import android.view.WindowManager
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 import personal.sushi.opentabletforandroidtablet.databinding.ActivityTabletBinding
 import personal.sushi.opentabletforandroidtablet.mapping.MappingMath
 import personal.sushi.opentabletforandroidtablet.mapping.PressureSettingsStore
@@ -180,13 +180,13 @@ class TabletActivity : AppCompatActivity() {
     // ── Toggles ──
 
     private fun setupToggles() {
-        (binding.switchFingerInput as Switch).setOnCheckedChangeListener { _, checked ->
+        binding.switchFingerInput.setOnCheckedChangeListener { _, checked ->
             allowFingerInput = checked
             binding.touchViewTablet.setAllowFingerInput(checked)
             Log.i(TAG, "Finger input: $checked")
         }
 
-        (binding.switchScreenLock as Switch).setOnCheckedChangeListener { _, checked ->
+        binding.switchScreenLock.setOnCheckedChangeListener { _, checked ->
             screenLocked = checked
             if (checked) {
                 enterImmersiveMode()
@@ -197,18 +197,17 @@ class TabletActivity : AppCompatActivity() {
             Log.i(TAG, "Screen lock: $checked")
         }
 
-        binding.toggleCtrl.setOnCheckedChangeListener { _, checked ->
-            ctrlActive = checked
-            if (!checked) bridge.nativeReleaseKeys()
+        fun bindModifier(button: MaterialButton, onFlag: (Boolean) -> Unit) {
+            button.isCheckable = true
+            button.setOnClickListener {
+                val on = button.isChecked
+                onFlag(on)
+                if (!on) bridge.nativeReleaseKeys()
+            }
         }
-        binding.toggleShift.setOnCheckedChangeListener { _, checked ->
-            shiftActive = checked
-            if (!checked) bridge.nativeReleaseKeys()
-        }
-        binding.toggleAlt.setOnCheckedChangeListener { _, checked ->
-            altActive = checked
-            if (!checked) bridge.nativeReleaseKeys()
-        }
+        bindModifier(binding.toggleCtrl) { ctrlActive = it }
+        bindModifier(binding.toggleShift) { shiftActive = it }
+        bindModifier(binding.toggleAlt) { altActive = it }
 
         binding.btnOpenSettings.setOnClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Material 3 palette -->
+    <color name="m3_primary">#FFD0BCFF</color>
+    <color name="m3_on_primary">#FF381E72</color>
+    <color name="m3_primary_container">#FF4F378B</color>
+    <color name="m3_on_primary_container">#FFEADDFF</color>
+    <color name="m3_secondary">#FFCCC2DC</color>
+    <color name="m3_on_secondary">#FF332D41</color>
+    <color name="m3_secondary_container">#FF4A4458</color>
+    <color name="m3_on_secondary_container">#FFE8DEF8</color>
+    <color name="m3_surface">#FF141218</color>
+    <color name="m3_on_surface">#FFE6E0E9</color>
+    <color name="m3_surface_variant">#FF49454F</color>
+    <color name="m3_on_surface_variant">#FFCAC4D0</color>
+    <color name="m3_error">#FFFFB4AB</color>
+    <color name="m3_on_error">#FF690005</color>
+    <color name="m3_outline">#FF938F99</color>
+    <color name="m3_status_ok">#FF6FDBCB</color>
+    <color name="m3_status_bad">#FFFFB4AB</color>
+    <color name="m3_status_neutral">#FFCAC4D0</color>
+</resources>

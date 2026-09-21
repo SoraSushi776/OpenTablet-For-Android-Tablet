@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1a1a1a">
+    android:background="@color/log_bg">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="#2d2d2d">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/log_panel"
+        app:navigationIcon="@drawable/ic_m3_back"
+        app:title="@string/title_log_viewer"
+        app:titleTextColor="@android:color/white">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/title_log_viewer"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnClear"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/btn_clear_log"
-            android:textSize="13sp"
-            android:padding="6dp"
-            android:minWidth="0dp" />
+            android:layout_gravity="end"
+            android:orientation="horizontal"
+            android:paddingEnd="8dp">
 
-        <Button
-            android:id="@+id/btnCopy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_copy_log"
-            android:textSize="13sp"
-            android:padding="6dp"
-            android:layout_marginStart="8dp"
-            android:minWidth="0dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClear"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_clear_log"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCopy"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_copy_log"
+                android:textColor="@android:color/white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <ScrollView
         android:id="@+id/logScroll"
@@ -55,9 +55,8 @@
             android:fontFamily="monospace"
             android:padding="8dp"
             android:textSize="12sp"
-            android:textColor="#c8e6c9"
+            android:textColor="@color/log_text"
             android:text="" />
-
     </ScrollView>
 
 </LinearLayout>

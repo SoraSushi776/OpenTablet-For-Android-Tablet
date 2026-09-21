@@ -52,6 +52,7 @@ class SettingsActivity : AppCompatActivity(), PressureCurveView.Listener {
         setupMappingUi()
         setupPressureUi()
         setupBackgroundUi()
+        binding.toolbar.setNavigationOnClickListener { finish() }
         binding.btnBack.setOnClickListener { finish() }
     }
 

@@ -72,28 +72,41 @@ class TouchCaptureView @JvmOverloads constructor(
         color = Color.argb(60, 255, 200, 0)
         style = Paint.Style.FILL
     }
-    private val textPaint = Paint().apply {
-        color = Color.WHITE
-        textSize = 40f
-        isAntiAlias = true
-    }
-    private val borderPaint = Paint().apply {
-        color = Color.argb(120, 0, 200, 255)
+    /** Mapping-region corner brackets: thick, white, semi-transparent. */
+    private val cornerPaint = Paint().apply {
+        color = Color.argb(170, 255, 255, 255)
         style = Paint.Style.STROKE
-        strokeWidth = 3f
-    }
-    private val mappingStroke = Paint().apply {
-        color = Color.argb(180, 33, 150, 243)
-        style = Paint.Style.STROKE
-        strokeWidth = 4f
+        strokeWidth = 12f
+        strokeCap = Paint.Cap.SQUARE
         isAntiAlias = true
-    }
-    private val mappingFill = Paint().apply {
-        color = Color.argb(28, 33, 150, 243)
-        style = Paint.Style.FILL
     }
 
     private var mappingRegion: MappingRegion? = null
+
+    private fun drawMappingCorners(canvas: Canvas, l: Float, t: Float, r: Float, b: Float) {
+        val w = r - l
+        val h = b - t
+        if (w <= 0f || h <= 0f) return
+        val arm = minOf(w, h) * 0.24f
+        val inset = cornerPaint.strokeWidth / 2f + 2f
+        val left = l + inset
+        val top = t + inset
+        val right = r - inset
+        val bottom = b - inset
+
+        // top-left
+        canvas.drawLine(left, top, left + arm, top, cornerPaint)
+        canvas.drawLine(left, top, left, top + arm, cornerPaint)
+        // top-right
+        canvas.drawLine(right - arm, top, right, top, cornerPaint)
+        canvas.drawLine(right, top, right, top + arm, cornerPaint)
+        // bottom-left
+        canvas.drawLine(left, bottom - arm, left, bottom, cornerPaint)
+        canvas.drawLine(left, bottom, left + arm, bottom, cornerPaint)
+        // bottom-right
+        canvas.drawLine(right - arm, bottom, right, bottom, cornerPaint)
+        canvas.drawLine(right, bottom - arm, right, bottom, cornerPaint)
+    }
 
     private var backgroundBitmap: Bitmap? = null
     private var bgSrc = RectF()
@@ -335,30 +348,22 @@ class TouchCaptureView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
         drawBackground(canvas)
 
-        canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), borderPaint)
-
         mappingRegion?.let { r ->
-            val l = r.originX
-            val t = r.originY
-            val rt = l + r.width
-            val b = t + r.height
-            canvas.drawRect(l, t, rt, b, mappingStroke)
+            drawMappingCorners(
+                canvas,
+                r.originX,
+                r.originY,
+                r.originX + r.width,
+                r.originY + r.height
+            )
         }
 
         if (touchActive) {
-            canvas.drawCircle(lastX, lastY, 30f, markerPaint)
+            canvas.drawCircle(lastX, lastY, 24f, markerPaint)
         } else if (isHovering) {
-            canvas.drawCircle(lastX, lastY, 20f, hoverPaint)
+            canvas.drawCircle(lastX, lastY, 16f, hoverPaint)
         }
-
-        val status = when {
-            touchActive -> "$toolType: (${lastX.toInt()}, ${lastY.toInt()})  P=${"%.2f".format(lastPressure)}"
-            isHovering -> "hover: (${lastX.toInt()}, ${lastY.toInt()})"
-            else -> "Ready — pen/finger to digitize"
-        }
-        canvas.drawText(status, 20f, 60f, textPaint)
     }
 }

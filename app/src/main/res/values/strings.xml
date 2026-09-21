@@ -18,7 +18,7 @@
     <string name="label_scale">缩放 %</string>
     <string name="label_offset_x">偏移 X %</string>
     <string name="label_offset_y">偏移 Y %</string>
-    <string name="hint_mapping_help">比例区域在右侧触控 View 内尽可能撑满；缩放与偏移按 View 宽高百分比调整。区域内触控映射到 0–32767。</string>
+    <string name="hint_mapping_help">比例区域在右侧触控 View 内尽可能撑满；缩放与偏移按 View 宽高百分比调整。区域内触控映射到 0–32767，区域外 clamp 到边缘。</string>
     <string name="label_presets">已保存预设</string>
     <string name="hint_preset_name">预设名称</string>
     <string name="btn_save_preset">保存预设</string>
@@ -44,7 +44,7 @@
 
     <!-- Tablet background image -->
     <string name="section_background">数位板背景图</string>
-    <string name="hint_background">背景铺满右侧整个触控区，按图片比例居中裁切（不拉伸）；蓝框仍表示数位板映射范围。</string>
+    <string name="hint_background">背景铺满右侧整个触控区，按图片比例居中裁切（不拉伸）。四角白色直角为当前映射范围。</string>
     <string name="btn_bg_default">内置 osu 图</string>
     <string name="btn_bg_pick">从设备选择</string>
     <string name="btn_bg_none">不显示背景</string>
