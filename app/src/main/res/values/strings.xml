@@ -42,6 +42,21 @@
     <string name="fmt_pressure_summary">接触判定 %1$d%% · 下笔最低压感 %2$d%% · 曲线点 (%3$d, %4$d) · 上限 %5$d%%\n拖图中白点改曲线，蓝竖线=落笔判定，橙横线=最小压感。</string>
     <string name="hint_pressure_help">压感主要给 PS 的笔刷；左键点击看「下笔最低压感」。曲线点 Y 越低轻笔越吃力。</string>
 
+    <!-- Tablet background image -->
+    <string name="section_background">数位板背景图</string>
+    <string name="hint_background">图片会铺满当前映射区域（数位板有效范围），便于对照操作。</string>
+    <string name="btn_bg_default">内置 osu 图</string>
+    <string name="btn_bg_pick">从设备选择</string>
+    <string name="btn_bg_none">不显示背景</string>
+    <string name="toast_bg_default">已使用内置背景图</string>
+    <string name="toast_bg_custom">已使用自定义背景图</string>
+    <string name="toast_bg_none">已关闭背景图</string>
+    <string name="toast_bg_fail">无法读取所选图片</string>
+    <string name="bg_mode_label">当前：%1$s</string>
+    <string name="bg_mode_none">无</string>
+    <string name="bg_mode_default">内置 osu</string>
+    <string name="bg_mode_custom">自定义</string>
+
     <!-- Pressure section (kept for tablet labels) -->
     <string name="section_pressure">压感与点击</string>
     <string name="label_contact_threshold">落笔判定 %</string>

@@ -1,9 +1,12 @@
 package personal.sushi.opentabletforandroidtablet.view
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Matrix
 import android.graphics.Paint
+import android.graphics.RectF
 import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -11,6 +14,7 @@ import android.view.View
 import personal.sushi.opentabletforandroidtablet.HidBridge
 import personal.sushi.opentabletforandroidtablet.mapping.MappingRegion
 import personal.sushi.opentabletforandroidtablet.mapping.PressureSettings
+import personal.sushi.opentabletforandroidtablet.mapping.TabletBackgroundStore
 
 class TouchCaptureView @JvmOverloads constructor(
     context: Context,
@@ -91,14 +95,50 @@ class TouchCaptureView @JvmOverloads constructor(
 
     private var mappingRegion: MappingRegion? = null
 
+    private var backgroundBitmap: Bitmap? = null
+    private var bgSrc = RectF()
+    private var bgDst = RectF()
+    private val bgPaint = Paint(Paint.FILTER_BITMAP_FLAG)
+
     fun setMappingRegion(region: MappingRegion?) {
         mappingRegion = region
         invalidate()
     }
 
+    /** Load tablet-area background (none / built-in / custom). */
+    fun reloadBackground() {
+        val bmp = TabletBackgroundStore.loadBitmap(context)
+        backgroundBitmap = bmp
+        if (bmp != null) {
+            bgSrc = RectF(0f, 0f, bmp.width.toFloat(), bmp.height.toFloat())
+        }
+        invalidate()
+    }
+
+    private fun drawBackground(canvas: Canvas) {
+        val bmp = backgroundBitmap ?: return
+        val target: RectF = mappingRegion?.let { r ->
+            RectF(r.originX, r.originY, r.originX + r.width, r.originY + r.height)
+        } ?: RectF(0f, 0f, width.toFloat(), height.toFloat())
+        if (target.width() <= 0f || target.height() <= 0f) return
+        bgDst = target
+        // Stretch-fit: fill the digitizer mapping area
+        val matrix = Matrix()
+        matrix.setRectToRect(bgSrc, bgDst, Matrix.ScaleToFit.FILL)
+        canvas.drawBitmap(bmp, matrix, bgPaint)
+        // Dim overlay so pen markers stay visible
+        canvas.drawRect(target, bgDimPaint)
+    }
+
+    private val bgDimPaint = Paint().apply {
+        color = Color.argb(40, 0, 0, 0)
+        style = Paint.Style.FILL
+    }
+
     fun attach(bridge: HidBridge) {
         this.bridge = bridge
         active = true
+        reloadBackground()
     }
 
     fun detach() {
@@ -289,6 +329,9 @@ class TouchCaptureView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        drawBackground(canvas)
+
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), borderPaint)
 
         mappingRegion?.let { r ->
@@ -296,7 +339,9 @@ class TouchCaptureView @JvmOverloads constructor(
             val t = r.originY
             val rt = l + r.width
             val b = t + r.height
-            canvas.drawRect(l, t, rt, b, mappingFill)
+            if (backgroundBitmap == null) {
+                canvas.drawRect(l, t, rt, b, mappingFill)
+            }
             canvas.drawRect(l, t, rt, b, mappingStroke)
         }
 

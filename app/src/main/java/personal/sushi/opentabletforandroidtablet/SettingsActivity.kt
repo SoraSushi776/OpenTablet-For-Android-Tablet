@@ -1,17 +1,20 @@
 package personal.sushi.opentabletforandroidtablet
 
+import android.net.Uri
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import personal.sushi.opentabletforandroidtablet.databinding.ActivitySettingsBinding
 import personal.sushi.opentabletforandroidtablet.mapping.MappingPreset
 import personal.sushi.opentabletforandroidtablet.mapping.MappingPresetStore
 import personal.sushi.opentabletforandroidtablet.mapping.PressureSettings
 import personal.sushi.opentabletforandroidtablet.mapping.PressureSettingsStore
+import personal.sushi.opentabletforandroidtablet.mapping.TabletBackgroundStore
 import personal.sushi.opentabletforandroidtablet.view.PressureCurveView
 
 class SettingsActivity : AppCompatActivity(), PressureCurveView.Listener {
@@ -27,6 +30,19 @@ class SettingsActivity : AppCompatActivity(), PressureCurveView.Listener {
     private var mapping = MappingPresetStore.builtin.first()
     private var pressure = PressureSettings.DEFAULT
 
+    private val pickImage = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri == null) return@registerForActivityResult
+        val ok = TabletBackgroundStore.importCustomImage(this, uri)
+        if (ok) {
+            Toast.makeText(this, R.string.toast_bg_custom, Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, R.string.toast_bg_fail, Toast.LENGTH_SHORT).show()
+        }
+        refreshBackgroundUi()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -35,7 +51,42 @@ class SettingsActivity : AppCompatActivity(), PressureCurveView.Listener {
         setupPreviewSize()
         setupMappingUi()
         setupPressureUi()
+        setupBackgroundUi()
         binding.btnBack.setOnClickListener { finish() }
+    }
+
+    private fun setupBackgroundUi() {
+        binding.btnBgDefault.setOnClickListener {
+            TabletBackgroundStore.setMode(this, TabletBackgroundStore.MODE_DEFAULT)
+            Toast.makeText(this, R.string.toast_bg_default, Toast.LENGTH_SHORT).show()
+            refreshBackgroundUi()
+        }
+        binding.btnBgPick.setOnClickListener {
+            pickImage.launch("image/*")
+        }
+        binding.btnBgNone.setOnClickListener {
+            TabletBackgroundStore.setMode(this, TabletBackgroundStore.MODE_NONE)
+            Toast.makeText(this, R.string.toast_bg_none, Toast.LENGTH_SHORT).show()
+            refreshBackgroundUi()
+        }
+        refreshBackgroundUi()
+    }
+
+    private fun refreshBackgroundUi() {
+        val mode = TabletBackgroundStore.mode(this)
+        val label = when (mode) {
+            TabletBackgroundStore.MODE_DEFAULT -> getString(R.string.bg_mode_default)
+            TabletBackgroundStore.MODE_CUSTOM -> getString(R.string.bg_mode_custom)
+            else -> getString(R.string.bg_mode_none)
+        }
+        binding.textBgMode.text = getString(R.string.bg_mode_label, label)
+
+        val bmp = TabletBackgroundStore.loadBitmap(this, maxDim = 1024)
+        if (bmp != null) {
+            binding.imageBgPreview.setImageBitmap(bmp)
+        } else {
+            binding.imageBgPreview.setImageDrawable(null)
+        }
     }
 
     private fun setupPreviewSize() {

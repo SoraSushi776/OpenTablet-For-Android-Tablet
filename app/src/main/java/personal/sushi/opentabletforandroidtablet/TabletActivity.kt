@@ -220,6 +220,7 @@ class TabletActivity : AppCompatActivity() {
         enterImmersiveMode()
         // Reload mapping-region overlay if settings changed while we were paused.
         binding.touchViewTablet.setPressureSettings(PressureSettingsStore.load(this))
+        binding.touchViewTablet.reloadBackground()
     }
 
     private fun startLockTaskMode() {
