@@ -117,17 +117,23 @@ class TouchCaptureView @JvmOverloads constructor(
 
     private fun drawBackground(canvas: Canvas) {
         val bmp = backgroundBitmap ?: return
-        val target: RectF = mappingRegion?.let { r ->
-            RectF(r.originX, r.originY, r.originX + r.width, r.originY + r.height)
-        } ?: RectF(0f, 0f, width.toFloat(), height.toFloat())
-        if (target.width() <= 0f || target.height() <= 0f) return
-        bgDst = target
-        // Stretch-fit: fill the digitizer mapping area
+        val viewW = width.toFloat()
+        val viewH = height.toFloat()
+        if (viewW <= 0f || viewH <= 0f || bmp.width <= 0 || bmp.height <= 0) return
+
+        // Center-crop fill over the entire touch view (right panel),
+        // not just the mapping box. Preserve aspect; crop overflow.
+        val scale = maxOf(viewW / bmp.width, viewH / bmp.height)
+        val scaledW = bmp.width * scale
+        val scaledH = bmp.height * scale
+        val dx = (viewW - scaledW) / 2f
+        val dy = (viewH - scaledH) / 2f
+
         val matrix = Matrix()
-        matrix.setRectToRect(bgSrc, bgDst, Matrix.ScaleToFit.FILL)
+        matrix.setScale(scale, scale)
+        matrix.postTranslate(dx, dy)
         canvas.drawBitmap(bmp, matrix, bgPaint)
-        // Dim overlay so pen markers stay visible
-        canvas.drawRect(target, bgDimPaint)
+        canvas.drawRect(0f, 0f, viewW, viewH, bgDimPaint)
     }
 
     private val bgDimPaint = Paint().apply {
@@ -339,9 +345,6 @@ class TouchCaptureView @JvmOverloads constructor(
             val t = r.originY
             val rt = l + r.width
             val b = t + r.height
-            if (backgroundBitmap == null) {
-                canvas.drawRect(l, t, rt, b, mappingFill)
-            }
             canvas.drawRect(l, t, rt, b, mappingStroke)
         }
 

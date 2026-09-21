@@ -44,7 +44,7 @@
 
     <!-- Tablet background image -->
     <string name="section_background">数位板背景图</string>
-    <string name="hint_background">图片会铺满当前映射区域（数位板有效范围），便于对照操作。</string>
+    <string name="hint_background">背景铺满右侧整个触控区，按图片比例居中裁切（不拉伸）；蓝框仍表示数位板映射范围。</string>
     <string name="btn_bg_default">内置 osu 图</string>
     <string name="btn_bg_pick">从设备选择</string>
     <string name="btn_bg_none">不显示背景</string>
